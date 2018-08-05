@@ -39,8 +39,5 @@ class MDP:
     def best_policy(self,U):
         pi={}
         for s in self.stateset:
-            pi[s]=max(self.actions(s),key=lambda a: expected_utility(a,s,U,self))
+            pi[s]=max(self.actions(s),key=lambda a: sum([p*U[s_] for (p,s_) in self.T(s,a)]))
         return pi
-
-def expected_utility(a,s,U,mdp):
-    return sum([p*U[s_] for (p,s_) in mdp.T(s,a)])
